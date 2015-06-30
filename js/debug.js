@@ -32,20 +32,37 @@
 
     var _console = false;
     var _screen = false;
+    var _target = null;
 
     var dbg = window.debug;
     dbg.log = function(any) {
-        var type = typeof any;
-        if(type == 'string' || type == 'number')
-            window.console.log(any + "\n");
-        if(type == 'function' || type == 'object')
-            window.console.log( window.utils.string.stringifyAsJSON(any) + "\n");
-
-        // Visual helper
+        if(dbg.isLogging()) {
+            var type = typeof any;
+            if (type == 'string' || type == 'number') {
+                if (_console)
+                    window.console.log(any + "\n");
+                if (_screen && _target != null) {
+                    var p = document.createElement('p');
+                    p.innerText = any;
+                    _target.appendChild(p);
+                }
+            }
+            if (type == 'function' || type == 'object') {
+                var line = window.utils.string.stringifyAsJSON(any);
+                if(_console)
+                    window.console.log( line + "\n");
+                if (_screen && _target != null) {
+                    var p = document.createElement('p');
+                    p.innerText = line;
+                    _target.appendChild(p);
+                }
+            }
+        }
     };
     dbg.isLogging = function() { return _console || _screen; };
     dbg.setLoggingToConsole = function(val) { _console = val; return this; };
     dbg.isLoggingToConsole = function () { return _console; };
+    dbg.setScreenTarget = function(id) { _target = document.getElementById(id); return this; }
     dbg.setLoggingToScreen = function(val) { _screen = val; return this; };
     dbg.isLoggingToScreen = function () { return _screen; };
 })();
