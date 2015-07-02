@@ -74,7 +74,7 @@
     tp.get = function(url, err) {
         var ret = _get(url);
         if(ret == null) {
-            _load(url, function(dt) {
+            _load(url, false, function(dt) {
                 ret = dt;
             }, err);
         }

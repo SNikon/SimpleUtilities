@@ -33,8 +33,8 @@
     if(window.utils.xhr==null) {
         window.utils.xhr = function ( method, url ) {
             var _xhr = null;
-            var _method = null;
-            var _url = null;
+            var _method = method;
+            var _url = url;
             var _query = null;
             var _body = null;
             var _headers = {};
@@ -55,7 +55,26 @@
                 if(_xhr) {
                     // Finished
                     if(_xhr.readyState == 4) {
-
+                        var st = _xhr.status;
+                        // OK states
+                        if(st >= 200 && st <= 299) {
+                            while(_onSuccess.length > 0) {
+                                var f = _onSuccess.pop();
+                                if(typeof f == 'function')
+                                    f( _xhr.responseText );
+                            }
+                        } else {
+                            while(_onError.length > 0) {
+                                var f = _onError.pop();
+                                if(typeof f == 'function')
+                                    f( _xhr.responseText );
+                            }
+                        }
+                        while(_onComplete.length > 0) {
+                            var f = _onComplete.pop();
+                            if(typeof f == 'function')
+                                f( _xhr.responseText );
+                        }
                     }
                 }
             }
@@ -78,7 +97,10 @@
                 responseAs: function(t) { _mimeOverride = t; return this; },
                 send: function () {
                     _xhr = new XMLHttpRequest();
-                    _xhr.open(_method, _url + _query, _async);
+                    var target = _url;
+                    if(_query != null)
+                        target += _query;
+                    _xhr.open(_method, target, _async);
                     _xhr.onload = _collectEvents;
                     if(_mimeOverride)
                         _xhr.overrideMimeType(_mimeOverride);
