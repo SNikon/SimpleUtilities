@@ -76,4 +76,13 @@
             throw "JSON not present. Not implemented exception";
         }
     };
+    str.format = function() {
+        var str = arguments[0];
+        var len = arguments.length;
+        for(var i = 1; i < len; i++) {
+            var regex = new RegExp('\\{'+ (i-1) + '\\}', 'g')
+            str = str.replace(regex, arguments[i]);
+        }
+        return str;
+    }
 })();
