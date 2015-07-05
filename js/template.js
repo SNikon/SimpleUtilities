@@ -2,7 +2,6 @@
  * @name template.js
  * @desc Template loader and manager
  * @author Jorge Martins
- * @namespace window.utils
  * @version 0.1.0
  * @license
  * Copyright (c) 2015 Jorge Martins
@@ -25,14 +24,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-(function(){
+define(['./debug','./xhr'], function(debug, xhrUtils){
     "use strict";
-    if(window.utils==null)
-        /** @global **/
-        window.utils={};
-
-    if(window.utils.template==null)
-        window.utils.template={};
 
     var _index = {};
     // this == xhr
@@ -42,11 +35,11 @@
 
     // this == xhr;
     function _onError(url) {
-        window.console.log('failed to get url: '+url);
+        debug.log('failed to get url: '+url);
     }
 
     function _load(url, async, succ, err) {
-        var xhr = window.utils.xhr('GET', url);
+        var xhr = xhrUtils('GET', url);
         xhr.responseAs('text/plain').async(async).send();
 
         xhr.success(_onSuccess.bind(xhr, url)).error(_onError.bind(xhr, url));
@@ -62,16 +55,16 @@
         return _index[url];
     }
 
-    var tp = window.utils.template;
-    tp.getAsync = function(url, succ, err) {
+    var module = {};
+    module.getAsync = function(url, succ, err) {
         if (_index[url] == null)
             _load(url, true, succ, err);
         else if (typeof succ == 'function')
             succ(_get(url));
         else
-            window.debug.log('Unable to return template data to requester');
+            debug.log('Unable to return template data to requester');
     };
-    tp.get = function(url, err) {
+    module.get = function(url, err) {
         var ret = _get(url);
         if(ret == null) {
             _load(url, false, function(dt) {
@@ -80,4 +73,4 @@
         }
         return ret;
     };
-})();
+});

@@ -2,7 +2,6 @@
  * @name obj_iterator.js
  * @desc Iterates through an object's properties using a callback provided
  * @author Jorge Martins
- * @namespace window.utils
  * @version 0.1.0
  * @license
  * Copyright (c) 2015 Jorge Martins
@@ -25,22 +24,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-(function () {
+define(function () {
     "use strict";
-    if (!window.utils)
-        window.utils = {};
-
     /**
      * Iterates through object
      * @param {object} object Object to iterate on
      * @param {function=} f Function to run for every key-value tuple
      * @param {function=} cond - Condition under which the function will run
      */
-    window.utils.iterate = function (object, f, cond) {
+    return function (object, f, cond) {
         for (var key in object) {
             if (object.hasOwnProperty(key) && (cond && cond(key, object[key]))) {
                 f(key, object[key]);
             }
         }
     }
-})();
+});

@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <script src="../js/string.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.18/require.min.js"></script>
+    <script>
+        require.config({
+            baseUrl: "../js/",
+            waitSeconds: 15
+        });
+    </script>
 </head>
 <body>
 
@@ -20,17 +26,22 @@
         var e0 = document.getElementById('init');
         var line = e0.innerText;
 
-        var res1 = window.utils.string.format(line, 'surprisingly', 'string', 'works');
-        var res2 = window.utils.string.format(line, 'lacking' );
-        var res3 = window.utils.string.format(line, 'amazing', 'piece', 'is horrible', 'but people wont see', 'the rest of', 'the arguments' );
+        require( ["string"],
+                function(stringUtils) {
 
-        var e1 = document.getElementById('id0');
-        var e2 = document.getElementById('id1');
-        var e3 = document.getElementById('id2');
+                    var res1 = stringUtils.format(line, 'surprisingly', 'string', 'works');
+                    var res2 = stringUtils.format(line, 'lacking' );
+                    var res3 = stringUtils.format(line, 'amazing', 'piece', 'is horrible', 'but people wont see', 'the rest of', 'the arguments' );
 
-        e1.innerText = res1;
-        e2.innerText = res2;
-        e3.innerText = res3;
+                    var e1 = document.getElementById('id0');
+                    var e2 = document.getElementById('id1');
+                    var e3 = document.getElementById('id2');
+
+                    e1.innerText = res1;
+                    e2.innerText = res2;
+                    e3.innerText = res3;
+                }
+        );
     </script>
 </body>
 </html>

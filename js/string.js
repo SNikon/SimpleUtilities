@@ -2,7 +2,6 @@
  * @name string.js
  * @desc String utilities
  * @author Jorge Martins
- * @namespace window.utils
  * @version 0.1.0
  * @license
  * Copyright (c) 2015 Jorge Martins
@@ -25,14 +24,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-(function(){
+define(function(){
     "use strict";
-    if(window.utils==null)
-        /** @global **/
-        window.utils={};
-
-    if(window.utils.string==null)
-        window.utils.string={};
 
     function _stringifyObjectRecursive(path, q) {
         var res = '';
@@ -47,15 +40,14 @@
         return res;
     }
 
-
-    var str = window.utils.string;
+    var module = {};
     /**
      * Parses a variable into a valid string to use as body data.
      * @param {object} q Object to be parsed
      * @returns {string} Valid URL encoded string
      * @private
      */
-    str.stringifyAsForm = function(q){
+    module.stringifyAsForm = function(q){
         var res = '';
         if (q != null) {
             if (typeof q == "string")
@@ -66,17 +58,17 @@
         }
         return res;
     };
-    str.stringifyAsQuery = function(q) {
+    module.stringifyAsQuery = function(q) {
         return "?" + _stringifyForm(q);
     };
-    str.stringifyAsJSON = function(q) {
+    module.stringifyAsJSON = function(q) {
         if(window.JSON) {
             return JSON.stringify(q);
         } else {
             throw "JSON not present. Not implemented exception";
         }
     };
-    str.format = function() {
+    module.format = function() {
         var str = arguments[0];
         var len = arguments.length;
         for(var i = 1; i < len; i++) {
@@ -84,5 +76,10 @@
             str = str.replace(regex, arguments[i]);
         }
         return str;
-    }
-})();
+    };
+    module.asFunction = function(str) {
+        return eval(str);
+    };
+
+    return module;
+});

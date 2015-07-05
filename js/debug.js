@@ -2,7 +2,6 @@
  * @name debug.js
  * @desc Logging helper
  * @author Jorge Martins
- * @namespace window.debug
  * @version 0.1.0
  * @license
  * Copyright (c) 2015 Jorge Martins
@@ -25,17 +24,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-(function () {
+define(['./string'], function (stringUtils) {
     "use strict";
-    if (!window.debug)
-        window.debug = {};
+
 
     var _console = false;
     var _screen = false;
     var _target = null;
 
-    var dbg = window.debug;
-    dbg.log = function(any) {
+    var module = {};
+    module.log = function(any) {
         if(dbg.isLogging()) {
             var type = typeof any;
             if (type == 'string' || type == 'number') {
@@ -48,7 +46,7 @@
                 }
             }
             if (type == 'function' || type == 'object') {
-                var line = window.utils.string.stringifyAsJSON(any);
+                var line = stringUtils.stringifyAsJSON(any);
                 if(_console)
                     window.console.log( line + "\n");
                 if (_screen && _target != null) {
@@ -59,10 +57,10 @@
             }
         }
     };
-    dbg.isLogging = function() { return _console || _screen; };
-    dbg.setLoggingToConsole = function(val) { _console = val; return this; };
-    dbg.isLoggingToConsole = function () { return _console; };
-    dbg.setScreenTarget = function(id) { _target = document.getElementById(id); return this; }
-    dbg.setLoggingToScreen = function(val) { _screen = val; return this; };
-    dbg.isLoggingToScreen = function () { return _screen; };
-})();
+    module.isLogging = function() { return _console || _screen; };
+    module.setLoggingToConsole = function(val) { _console = val; return this; };
+    module.isLoggingToConsole = function () { return _console; };
+    module.setScreenTarget = function(id) { _target = document.getElementById(id); return this; }
+    module.setLoggingToScreen = function(val) { _screen = val; return this; };
+    module.isLoggingToScreen = function () { return _screen; };
+});
