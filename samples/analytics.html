@@ -3,12 +3,19 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <script src="../js/google_analytics.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.18/require.min.js"></script>
+    <script>
+        require.config({
+            baseUrl: "../js/",
+            waitSeconds: 15
+        });
+    </script>
 </head>
 <body>
     <script>
-        window.analytics.start('UA-64681814-1');
+        require(['google_analytics'], function(analytics) {
+            analytics.start('UA-64681814-1');
+        })
     </script>
 </body>
 </html>

@@ -34,7 +34,7 @@ define(['./string'], function (stringUtils) {
 
     var module = {};
     module.log = function(any) {
-        if(dbg.isLogging()) {
+        if(this.isLogging()) {
             var type = typeof any;
             if (type == 'string' || type == 'number') {
                 if (_console)
@@ -63,4 +63,5 @@ define(['./string'], function (stringUtils) {
     module.setScreenTarget = function(id) { _target = document.getElementById(id); return this; }
     module.setLoggingToScreen = function(val) { _screen = val; return this; };
     module.isLoggingToScreen = function () { return _screen; };
+    return module;
 });

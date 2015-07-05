@@ -3,29 +3,37 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <script src="../js/debug.js"></script>
-    <script src="../js/string.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.18/require.min.js"></script>
+    <script>
+        require.config({
+            baseUrl: "../js/",
+            waitSeconds: 15
+        });
+    </script>
 </head>
 <body>
     <div id="target" style="position:absolute; top:100px; left:100px; color:red; width: 500px; height: 500px"></div>
 
     <script>
-        window.debug.setLoggingToConsole(true);
-        window.debug.setLoggingToScreen(true);
-        window.debug.setScreenTarget('target');
+        require(['debug'], function(debug) {
+            debug.setLoggingToConsole(true);
+            debug.setLoggingToScreen(true);
+            debug.setScreenTarget('target');
 
-        window.setTimeout( function() {
-            window.debug.log('First Error Going Now!')
-        }, 5000);
-        window.setTimeout( function() {
-            window.debug.log({
-                'value':'not quite sure',
-                'wondering': 'if this will work'
-            })
-        }, 10000);
-        window.setTimeout( function() {
-            window.debug.log('Test successful!');
-        }, 15000);
+            window.setTimeout( function() {
+                debug.log('First Error Going Now!')
+            }, 5000);
+            window.setTimeout( function() {
+                debug.log({
+                    'value':'not quite sure',
+                    'wondering': 'if this will work'
+                })
+            }, 10000);
+            window.setTimeout( function() {
+                debug.log('Test successful!');
+            }, 15000);
+        })
+
     </script>
 </body>
 </html>

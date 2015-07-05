@@ -73,4 +73,6 @@ define(['./debug','./xhr'], function(debug, xhrUtils){
         }
         return ret;
     };
+
+    return module;
 });

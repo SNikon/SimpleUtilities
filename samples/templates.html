@@ -3,25 +3,30 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <script src="../js/obj_iterator.js"></script>
-    <script src="../js/xhr.js"></script>
-    <script src="../js/template.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.18/require.min.js"></script>
+    <script>
+        require.config({
+            baseUrl: "../js/",
+            waitSeconds: 15
+        });
+    </script>
 </head>
 <body>
-
     <script>
-        var t1 = window.utils.template.get('template1.html', function(err) {
-            debugger;
-        });
-        var x = document.createElement('div');
-        document.body.appendChild(x);
-        x.outerHTML = t1;
-        var t2 = window.utils.template.getAsync('template2.html', function(tp) {
-            var y = document.createElement('div');
-            document.body.appendChild(y);
-            y.outerHTML = tp;
-        }, function(err) {
-            debugger;
+        require(['template'], function(template) {
+            var t1 = template.get('template1.html', function(err) {
+                debugger;
+            });
+            var x = document.createElement('div');
+            document.body.appendChild(x);
+            x.outerHTML = t1;
+            var t2 = template.getAsync('template2.html', function(tp) {
+                var y = document.createElement('div');
+                document.body.appendChild(y);
+                y.outerHTML = tp;
+            }, function(err) {
+                debugger;
+            });
         });
     </script>
 </body>
