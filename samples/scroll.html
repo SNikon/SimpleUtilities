@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .wrap {
+            white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            white-space: pre-wrap;       /* css-3 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            white-space: -webkit-pre-wrap; /* Newer versions of Chrome/Safari*/
+            word-break: break-all;
+            white-space: normal;
+            overflow: hidden;
+        }
+        #small-box {
+            position: absolute;
+            width: 582px;
+            left: 43px;
+            top: 62px;
+            z-index: 21;
+            height: 431px;
+        }
+        #smallest-box {
+            position: absolute;
+            width: 582px;
+            right: 43px;
+            top: 62px;
+            z-index: 21;
+            height: 30px;
+            overflow: hidden;
+        }
+        a {
+            width: 100px;
+            height: 40px;
+            background-color: green;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.18/require.min.js"></script>
+    <script>
+        require.config({
+            baseUrl: "../js/",
+            waitSeconds: 15
+        });
+    </script>
+</head>
+<body>
+    <div id="small-box" class="wrap">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum nulla nunc, a condimentum mi hendrerit eget. Suspendisse porta ornare augue, sit amet bibendum massa tempus ut. Vivamus et dui mauris. Praesent nec ultricies enim.
+        </p>
+        <p>
+            <br>
+        </p>
+        <p>
+            Aenean gravida sed quam a convallis. Ut sed tellus eget est cursus feugiat. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque placerat purus rutrum ante euismod scelerisque. In posuere mauris leo, mattis viverra nunc commodo et. Etiam ut maximus ipsum, eget rhoncus justo. Curabitur ante sapien, tristique nec sapien vel, posuere sodales nisi. Praesent sollicitudin dolor vitae vehicula eleifend. Nulla tempus nisi eu nisi mollis efficitur.
+        </p>
+        <p>
+            <br>
+        </p>
+        <p>
+            Aenean gravida sed quam a convallis. Ut sed tellus eget est cursus feugiat. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque placerat purus rutrum ante euismod scelerisque. In posuere mauris leo, mattis viverra nunc commodo et. Etiam ut maximus ipsum, eget rhoncus justo. Curabitur ante sapien, tristique nec sapien vel, posuere sodales nisi. Praesent sollicitudin dolor vitae vehicula eleifend. Nulla tempus nisi eu nisi mollis efficitur.
+        </p>
+        <p id="test">
+            This is my test
+            <br>
+            <br>
+            <br>
+            Do Something With Me
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum nulla nunc, a condimentum mi hendrerit eget. Suspendisse porta ornare augue, sit amet bibendum massa tempus ut. Vivamus et dui mauris. Praesent nec ultricies enim.
+        </p>
+        <p>
+            <br>
+        </p>
+        <p>
+            Aenean gravida sed quam a convallis. Ut sed tellus eget est cursus feugiat. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque placerat purus rutrum ante euismod scelerisque. In posuere mauris leo, mattis viverra nunc commodo et. Etiam ut maximus ipsum, eget rhoncus justo. Curabitur ante sapien, tristique nec sapien vel, posuere sodales nisi. Praesent sollicitudin dolor vitae vehicula eleifend. Nulla tempus nisi eu nisi mollis efficitur.
+        </p>
+        <p>
+            <br>
+        </p>
+        <p>
+            Aenean gravida sed quam a convallis. Ut sed tellus eget est cursus feugiat. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque placerat purus rutrum ante euismod scelerisque. In posuere mauris leo, mattis viverra nunc commodo et. Etiam ut maximus ipsum, eget rhoncus justo. Curabitur ante sapien, tristique nec sapien vel, posuere sodales nisi. Praesent sollicitudin dolor vitae vehicula eleifend. Nulla tempus nisi eu nisi mollis efficitur.
+        </p>
+        <p>
+            <br>
+        </p>
+    </div>
+
+    <div id="smallest-box" class="wrap">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum nulla nunc, a condimentum mi hendrerit eget. Suspendisse porta ornare augue, sit amet bibendum massa tempus ut. Vivamus et dui mauris. Praesent nec ultricies enim.
+        </p>
+        <p>
+            <br>
+        </p>
+        <p>
+            Aenean gravida sed quam a convallis. Ut sed tellus eget est cursus feugiat. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque placerat purus rutrum ante euismod scelerisque. In posuere mauris leo, mattis viverra nunc commodo et. Etiam ut maximus ipsum, eget rhoncus justo. Curabitur ante sapien, tristique nec sapien vel, posuere sodales nisi. Praesent sollicitudin dolor vitae vehicula eleifend. Nulla tempus nisi eu nisi mollis efficitur.
+        </p>
+    </div>
+
+    <a id="b1">TOP</a>
+    <a id="b2">CENTER</a>
+    <a id="b3">BOTTOM</a>
+
+    <a id="b4">+10px</a>
+    <a id="b5">-10px</a>
+    <script>
+        require(['scroll'], function(scroll) {
+            var box = document.getElementById('small-box');
+            var target = document.getElementById('test');
+
+            document.getElementById('b1').onclick = function() {
+                scroll.scrollToTarget(box,target,'top');
+            };
+            document.getElementById('b2').onclick = function() {
+                scroll.scrollToTarget(box,target,'middle');
+            };
+            document.getElementById('b3').onclick = function() {
+                scroll.scrollToTarget(box,target,'bottom');
+            };
+            document.getElementById('b4').onclick = function() {
+                scroll.scrollDown(box,10);
+            };
+            document.getElementById('b5').onclick = function() {
+                scroll.scrollUp(box,10);
+            };
+        });
+    </script>
+</body>
+</html>
